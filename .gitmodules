@@ -1,0 +1,3 @@
+[submodule "depends/xassert"]
+	path = depends/xassert
+	url = https://github.com/alinush/xassert
