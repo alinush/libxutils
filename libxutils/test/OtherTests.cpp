@@ -21,6 +21,7 @@
 using namespace std;
 
 void testUtils();
+void testRandomSubsets();
 
 int main(int argc, char * argv[]) {
     (void)argc;
@@ -31,12 +32,16 @@ int main(int argc, char * argv[]) {
     srand(seed);
 
     testUtils();
+    for(int i = 0; i < 10; i++) {
+        testRandomSubsets();
+    }
 
     loginfo << "Exited gracefully with 0."<< endl;
     return 0;
 }
 
-void testUtils() {
+void testUtils()
+{
 	assertEqual(Utils::numBits(1), 1);
 	assertEqual(Utils::numBits(2), 2);
 	assertEqual(Utils::numBits(3), 2);
@@ -57,4 +62,19 @@ void testUtils() {
 
 	loginfo << "Utils::pow2 passed!" << endl;
 
+}
+
+void testRandomSubsets() 
+{
+    std::vector<int> v;
+    std::set<int> s;
+    const int max = 10;
+    Utils::randomSubset(v, max, 6);
+    Utils::randomSubset(s, max, 6);
+    assertEqual(v.size(), s.size());
+
+    std::for_each(v.begin(), v.end(), [](int &el) {
+        assertGreaterThanOrEqual(el, 0);
+        assertStrictlyLessThan(el, max);
+    });
 }

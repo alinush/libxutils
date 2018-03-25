@@ -117,7 +117,7 @@ public:
     }
 
     /**
-     * Returns k random numbers in the range [0, n)
+     * Returns k random numbers in the range [0, n) as an std::set
      */
     template<class T>
     static void randomSubset(std::set<T>& rset, int n, int k) {
@@ -127,6 +127,19 @@ public:
 
 			rset.insert(i);
 		}
+    }
+
+    /**
+     * Returns k random numbers in the range [0, n) as an std::vector
+     */
+    template<class T>
+    static void randomSubset(std::vector<T>& v, int n, int k) {
+        std::set<T> s;
+        v.resize(static_cast<size_t>(k));
+
+        randomSubset(s, n, k);
+        v.assign(s.begin(), s.end());
+        assertEqual(s.size(), v.size());
     }
 
     static void hex2bin(const char * hexBuf, int hexBufLen, unsigned char * bin, int binCapacity);
