@@ -14,6 +14,10 @@ To build, create a `build/` directory (will be .gitignore'd by default) as follo
     cd build/
     cmake ..
     cmake --build .
+
+You can install using:
+(After I fix some bugs, this should work. For now it doesn't.)
+
     cmake --build . --target install    
 
 ## Test
@@ -35,3 +39,6 @@ To update your submodules with changes from their upstream github repos, do:
 
     git submodule foreach git pull origin master
 
+## TODO
+
+ - Cannot install libxutils due to some weird xassert dependency
