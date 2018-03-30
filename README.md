@@ -10,6 +10,7 @@ A utility library with various useful functions.
 You need to install `libxassert` from [here](https://github.com/alinush/libxassert):
 
     git clone https://github.com/alinush/libxassert
+    cd libxassert/
     mkdir -p build/
     cd build/
     cmake -DCMAKE_BUILD_TYPE=Release ..
