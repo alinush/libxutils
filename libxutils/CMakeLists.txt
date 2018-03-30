@@ -14,8 +14,7 @@ target_link_libraries(xutils
 
 target_include_directories(xutils PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-    "$<INSTALL_INTERFACE:${INSTALL_CMAKE_DIR}/include>"
+    #"$<INSTALL_INTERFACE:${INSTALL_CMAKE_DIR}/include>"    # libbilinear fails cmake'ing when this is set in libxutils
 )
 
 #
@@ -44,4 +43,3 @@ install(TARGETS xutils
 # This installs the headers
 # WARNING: Don't add / at the end. No slash means libxutils/ directory is created in the destination path
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/xutils DESTINATION include)
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/xutils DESTINATION include)

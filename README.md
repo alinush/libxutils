@@ -3,20 +3,29 @@ libxutils
 
 A utility library with various useful functions.
 
-`libxutils` is easily importable into CMake projects using either `add_subdirectory` (when not installed on the system but present locally in the code repository that's importing it) or using `find_package` (when installed on the system).
+`libxutils` is easily importable into CMake projects using `find_package(xutils)`, when installed on the system.
+
+## Dependencies
+
+You need to install `libxassert` from [here](https://github.com/alinush/libxassert):
+
+    git clone https://github.com/alinush/libxassert
+    mkdir -p build/
+    cd build/
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+    make
+    sudo make install
 
 ## Build
 
 To build, create a `build/` directory (will be .gitignore'd by default) as follows:
 
-    cd libxutils/   # assuming you are in the repo
     mkdir build/
     cd build/
-    cmake ..
+    cmake -DCMAKE_BUILD_TYPE=Release ..
     cmake --build .
 
 You can install using:
-(After I fix some bugs, this should work. For now it doesn't.)
 
     cmake --build . --target install    
 
@@ -24,21 +33,10 @@ You can install using:
 
 To run some tests:
 
-    cd libxutils/   # assuming you are in the repo
-    cd build/       # and you have built everything successfully
+    cd build/
     ctest
-
-## Git submodules
-
-For historical purposes, when first I set up the submodules, I did:
-    
-    cd depends/
-    git submodule add https://github.com/alinush/xassert 
-
-To update your submodules with changes from their upstream github repos, do:
-
-    git submodule foreach git pull origin master
 
 ## TODO
 
- - Cannot install libxutils due to some weird xassert dependency
+ - [DONE] Cannot install libxutils due to misconfigured libxassert dependency
+   + From now on libxutils expects libxassert to be installed

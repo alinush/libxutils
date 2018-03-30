@@ -23,12 +23,7 @@ find_package(xassert QUIET)
 if(xassert_FOUND)
     message("xassert library is installed!")
 else()
-    message("xassert library not installed locally, downloading manually...")
-
-    execute_process(COMMAND git submodule update --init -- depends/xassert
-                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
-    add_subdirectory(depends/xassert)
+    message("xassert library not installed. Please download, build and install from https://github.com/alinush/xassert")
 endif()
 
 #find_package(Threads REQUIRED)
