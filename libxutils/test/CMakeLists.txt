@@ -1,5 +1,5 @@
 set(xutils_test_sources
-  OtherTests.cpp
+  UtilsTest.cpp
 )
 
 foreach(appSrc ${xutils_test_sources})

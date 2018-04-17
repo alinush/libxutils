@@ -105,14 +105,14 @@ private:
 	LogInitializer() {
 	// If we're in "no logging" mode, make sure we never evaluate 'expr' we logdbg!
 #ifdef NDEBUG
-		logdbg << shouldNotBeCalled();
-		loginfo << "Compiler successfully avoids evaluating expressions in 'logdbg << expr()'" << std::endl;
+		logdbg << "asd" << 4 << shouldNotBeCalled();
+		//loginfo << "Compiler successfully avoids evaluating expressions in 'logdbg << expr()'" << std::endl;
 #endif
 
 	// If we're in "no trace" mode, make sure we never evaluate 'expr' we logtrace!
 #ifndef TRACE
-		logtrace << shouldNotBeCalled();
-		loginfo << "Compiler successfully avoids evaluating expressions in 'logtrace << expr()'" << std::endl;
+		logtrace << 2 << "xyz" << shouldNotBeCalled();
+		//loginfo << "Compiler successfully avoids evaluating expressions in 'logtrace << expr()'" << std::endl;
 #endif
 	}
 
