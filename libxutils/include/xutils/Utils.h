@@ -117,27 +117,27 @@ public:
     }
 
     /**
-     * Returns k random numbers in the range [0, n) as an std::set
+     * Returns k random numbers in the range [0, n) + offset as an std::set
      */
     template<class T>
-    static void randomSubset(std::set<T>& rset, int n, int k) {
+    static void randomSubset(std::set<T>& rset, int n, int k, T offset = 0) {
 		// NOTE: Does not need cryptographically secure RNG
 		while (rset.size() < static_cast<typename std::set<T>::size_type>(k)) {
-			T i = static_cast<T>(rand() % n);
+			T i = static_cast<T>(rand() % n) + offset;
 
 			rset.insert(i);
 		}
     }
 
     /**
-     * Returns k random numbers in the range [0, n) as an std::vector
+     * Returns k random numbers in the range [0, n) + offset as an std::vector
      */
     template<class T>
-    static void randomSubset(std::vector<T>& v, int n, int k) {
+    static void randomSubset(std::vector<T>& v, int n, int k, T offset = 0) {
         std::set<T> s;
         v.resize(static_cast<size_t>(k));
 
-        randomSubset(s, n, k);
+        randomSubset(s, n, k, offset);
         v.assign(s.begin(), s.end());
         assertEqual(s.size(), v.size());
     }
