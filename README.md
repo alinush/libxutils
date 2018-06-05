@@ -28,7 +28,7 @@ To build, create a `build/` directory (will be .gitignore'd by default) as follo
 
 You can install using:
 
-    cmake --build . --target install    
+    sudo cmake --build . --target install
 
 ## Test
 
