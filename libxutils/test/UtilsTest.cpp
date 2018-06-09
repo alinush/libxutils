@@ -16,6 +16,7 @@
 
 #include "xutils/Log.h"
 #include "xutils/Utils.h"
+#include "xutils/NotImplementedException.h"
 #include "xassert/XAssert.h"
 
 using namespace std;
@@ -34,6 +35,14 @@ int main(int argc, char * argv[]) {
     testUtils();
     for(int i = 0; i < 10; i++) {
         testRandomSubsets();
+    }
+
+    try {
+        throw libxutils::NotImplementedException();
+    } catch(libxutils::NotImplementedException& e) {
+        loginfo << "Caught NotImplementedException" << endl;
+    } catch(std::exception& e) {
+        assertFail("Did not expect another exception");
     }
 
     loginfo << "Exited gracefully with 0."<< endl;
