@@ -20,12 +20,21 @@
 
 namespace libxutils {
 
-class NotImplementedException: public std::exception {
+class NotImplementedException: public std::runtime_error {
 public:
-	NotImplementedException() {}
+	NotImplementedException(const char * what) 
+        : std::runtime_error(what)
+    {}
+	
+    NotImplementedException(const std::string& what) 
+        : std::runtime_error(what)
+    {}
+    
+    NotImplementedException()
+        : std::runtime_error("no reason")
+    {}
 
 public:
-	virtual const char * what() const _NOEXCEPT { return "Not implemented exception!"; }
 };
 
 }

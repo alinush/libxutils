@@ -38,10 +38,13 @@ int main(int argc, char * argv[]) {
     }
 
     try {
+        std::string a("abc");
+        throw libxutils::NotImplementedException(a);
         throw libxutils::NotImplementedException();
-    } catch(libxutils::NotImplementedException& e) {
-        loginfo << "Caught NotImplementedException" << endl;
-    } catch(std::exception& e) {
+        throw libxutils::NotImplementedException("a");
+    } catch(const libxutils::NotImplementedException& e) {
+        loginfo << "Caught NotImplementedException: " << e.what() << endl;
+    } catch(const std::exception& e) {
         assertFail("Did not expect another exception");
     }
 
