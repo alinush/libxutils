@@ -14,10 +14,11 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "xutils/Log.h"
-#include "xutils/Utils.h"
-#include "xutils/NotImplementedException.h"
-#include "xassert/XAssert.h"
+#include <xutils/Log.h>
+#include <xutils/Timer.h>
+#include <xutils/Utils.h>
+#include <xutils/NotImplementedException.h>
+#include <xassert/XAssert.h>
 
 using namespace std;
 
@@ -46,6 +47,14 @@ int main(int argc, char * argv[]) {
         loginfo << "Caught NotImplementedException: " << e.what() << endl;
     } catch(const std::exception& e) {
         assertFail("Did not expect another exception");
+    }
+
+    {
+        ScopedTimer<> t(std::cout, "Default ", " microseconds\n");
+    }
+
+    {
+        ScopedTimer<std::chrono::seconds> t(std::cout, "Seconds ", " seconds\n");
     }
 
     loginfo << "Exited gracefully with 0."<< endl;

@@ -19,6 +19,7 @@ using std::chrono::microseconds;
  * 		mycode();
  * 	}
  */
+template<class T = std::chrono::microseconds>
 class ScopedTimer
 {
 private:
@@ -34,8 +35,8 @@ public:
     {}
 
     ~ScopedTimer() {
-        microseconds mus = std::chrono::duration_cast<microseconds>(theclock::now() - beginning);
-        out << prefix << mus.count() << " microseconds" << suffix << std::flush;
+        T mus = std::chrono::duration_cast<T>(theclock::now() - beginning);
+        out << prefix << mus.count() << suffix << std::flush;
     }
 };
 
