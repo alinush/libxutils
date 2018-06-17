@@ -90,7 +90,10 @@ public:
 	    }
 	}
 
-	static int nearestPowerOfTwo(int n) {
+	/**
+     * Used to be called: int nearestPowerOfTwo(int n)
+     */
+    static int smallestPowerOfTwoAbove(int n) {
 		assertGreaterThanOrEqual(n, 0);
 
 		int power = 1;
@@ -99,6 +102,18 @@ public:
 		}
 		return power;
 	}
+
+    static int greatestPowerOfTwoBelow(int n) {
+        if(n == 0)
+            return 0;
+
+        int ret = 1;
+
+        while(n >>= 1)
+            ret <<= 1;
+
+        return ret;
+    }
 
     template<class T>
     static std::string humanizeBytes(T bytes) {

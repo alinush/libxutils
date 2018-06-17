@@ -38,6 +38,13 @@ int main(int argc, char * argv[]) {
         testRandomSubsets();
     }
 
+    testAssertEqual(Utils::smallestPowerOfTwoAbove(0), 1);
+    testAssertEqual(Utils::smallestPowerOfTwoAbove(1), 1);
+    testAssertEqual(Utils::greatestPowerOfTwoBelow(1), 1);
+    testAssertEqual(Utils::greatestPowerOfTwoBelow(0), 0);
+    testAssertEqual(Utils::smallestPowerOfTwoAbove(3), 4);
+    testAssertEqual(Utils::greatestPowerOfTwoBelow(3), 2);
+
     try {
         std::string a("abc");
         throw libxutils::NotImplementedException(a);
