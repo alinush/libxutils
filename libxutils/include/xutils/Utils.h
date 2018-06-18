@@ -55,6 +55,14 @@ public:
 	};
 
 public:
+    template<class C, class V>
+    static void removeFirst(C& c, const V& v) {
+        auto it = std::find(c.begin(), c.end(), v);
+        if (it != c.end()) {
+            c.erase(it);
+        }
+    }
+
 	static bool fileExists(const std::string& filename);
 
 	/**
