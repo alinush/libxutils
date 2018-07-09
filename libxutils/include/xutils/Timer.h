@@ -118,13 +118,13 @@ public:
 
 	const std::string& getName() const { return name; }
 
-	microseconds endLap() {
+	microseconds::rep endLap() {
 		microseconds duration = std::chrono::duration_cast<microseconds>(theclock::now() - beginning);
 		total += duration;
 		iters++;
 		assertTrue(started);	// Do this after timing, to not slow down anything.
 		started = false;
-		return duration;
+		return duration.count();
 	}
 
 	unsigned long numIterations() const { return iters; }
