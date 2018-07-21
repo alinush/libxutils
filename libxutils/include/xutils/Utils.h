@@ -104,6 +104,21 @@ public:
     }
 
     /**
+     * Returns floor(log2(n))
+     */
+    template<class T>
+    static T log2floor(T n) {
+        if(n < 0)
+            throw std::logic_error("log2 on negative numbers doesn't work");
+
+        T res = 0;
+        while (n /= 2) {
+            res++;
+        }
+        return res;
+    }
+
+    /**
      * Returns 2^exp
      */
     static int pow2(int exp) {

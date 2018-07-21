@@ -45,6 +45,20 @@ int main(int argc, char * argv[]) {
     testAssertEqual(Utils::smallestPowerOfTwoAbove(3), 4);
     testAssertEqual(Utils::greatestPowerOfTwoBelow(3), 2);
 
+    testAssertEqual(Utils::log2floor(1), 0);
+    testAssertEqual(Utils::log2floor(2), 1);
+    testAssertEqual(Utils::log2floor(3), 1);
+    testAssertEqual(Utils::log2floor(4), 2);
+    testAssertEqual(Utils::log2floor(5), 2);
+    testAssertEqual(Utils::log2floor(6), 2);
+    testAssertEqual(Utils::log2floor(7), 2);
+    testAssertEqual(Utils::log2floor(8), 3);
+    testAssertEqual(Utils::log2floor(15), 3);
+    testAssertEqual(Utils::log2floor(16), 4);
+    testAssertEqual(Utils::log2floor(512), 9);
+    testAssertEqual(Utils::log2floor(1024*1024), 20);
+
+
     try {
         std::string a("abc");
         throw libxutils::NotImplementedException(a);
