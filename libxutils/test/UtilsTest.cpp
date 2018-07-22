@@ -40,10 +40,19 @@ int main(int argc, char * argv[]) {
 
     testAssertEqual(Utils::smallestPowerOfTwoAbove(0), 1);
     testAssertEqual(Utils::smallestPowerOfTwoAbove(1), 1);
-    testAssertEqual(Utils::greatestPowerOfTwoBelow(1), 1);
-    testAssertEqual(Utils::greatestPowerOfTwoBelow(0), 0);
+    testAssertEqual(Utils::smallestPowerOfTwoAbove(2), 2);
     testAssertEqual(Utils::smallestPowerOfTwoAbove(3), 4);
+    testAssertEqual(Utils::smallestPowerOfTwoAbove(4), 4);
+    testAssertEqual(Utils::smallestPowerOfTwoAbove(5), 8);
+    testAssertEqual(Utils::smallestPowerOfTwoAbove(6), 8);
+
+    testAssertEqual(Utils::greatestPowerOfTwoBelow(0), 0);
+    testAssertEqual(Utils::greatestPowerOfTwoBelow(1), 1);
+    testAssertEqual(Utils::greatestPowerOfTwoBelow(2), 2);
     testAssertEqual(Utils::greatestPowerOfTwoBelow(3), 2);
+    testAssertEqual(Utils::greatestPowerOfTwoBelow(4), 4);
+    testAssertEqual(Utils::greatestPowerOfTwoBelow(5), 4);
+    testAssertEqual(Utils::greatestPowerOfTwoBelow(6), 4);
 
     testAssertEqual(Utils::log2floor(1), 0);
     testAssertEqual(Utils::log2floor(2), 1);
