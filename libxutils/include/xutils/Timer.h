@@ -2,6 +2,8 @@
  * Timer.h
  *
  * Author: Alin Tomescu <alinush@mit.edu>
+ *
+ * TODO: Add wall-clock timer timers versus CPU time timers
  */
 #pragma once
 
