@@ -9,7 +9,7 @@ add_library(xutils
 )
 
 target_link_libraries(xutils
-    PRIVATE xassert
+    PUBLIC xassert
 )
 
 target_include_directories(xutils PUBLIC
