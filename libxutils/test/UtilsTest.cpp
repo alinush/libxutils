@@ -93,25 +93,25 @@ int main(int argc, char * argv[]) {
 
 void testUtils()
 {
-	assertEqual(Utils::numBits(1), 1);
-	assertEqual(Utils::numBits(2), 2);
-	assertEqual(Utils::numBits(3), 2);
-	assertEqual(Utils::numBits(4), 3);
-	assertEqual(Utils::numBits(5), 3);
-	assertEqual(Utils::numBits(6), 3);
-	assertEqual(Utils::numBits(7), 3);
-	assertEqual(Utils::numBits(8), 4);
+    assertEqual(Utils::numBits(1), 1);
+    assertEqual(Utils::numBits(2), 2);
+    assertEqual(Utils::numBits(3), 2);
+    assertEqual(Utils::numBits(4), 3);
+    assertEqual(Utils::numBits(5), 3);
+    assertEqual(Utils::numBits(6), 3);
+    assertEqual(Utils::numBits(7), 3);
+    assertEqual(Utils::numBits(8), 4);
 
     loginfo << "Utils::numBits passed!" << endl;
 
-	assertEqual(Utils::pow2(0), 1);
-	assertEqual(Utils::pow2(1), 2);
-	assertEqual(Utils::pow2(2), 4);
-	assertEqual(Utils::pow2(3), 8);
-	assertEqual(Utils::pow2(4), 16);
-	assertEqual(Utils::pow2(5), 32);
+    assertEqual(Utils::pow2(0), 1);
+    assertEqual(Utils::pow2(1), 2);
+    assertEqual(Utils::pow2(2), 4);
+    assertEqual(Utils::pow2(3), 8);
+    assertEqual(Utils::pow2(4), 16);
+    assertEqual(Utils::pow2(5), 32);
 
-	loginfo << "Utils::pow2 passed!" << endl;
+    loginfo << "Utils::pow2 passed!" << endl;
 
 }
 

@@ -83,13 +83,13 @@ void Utils::hex2bin(const char * hexBuf, int hexBufLen, unsigned char * bin, int
     for (int count = 0; count < binLen; count++) {
 
 #if defined(__STDC_LIB_EXT1__) || defined(_WIN32)
-		if (sscanf_s(hexBuf, "%2hhx", bin + count) != 1)
+        if (sscanf_s(hexBuf, "%2hhx", bin + count) != 1)
             throw std::runtime_error("Invalid hexadecimal string: bad character");
 #else
-		if (sscanf(hexBuf, "%2hhx", bin + count) != 1)
-			throw std::runtime_error("Invalid hexadecimal string: bad character");
+        if (sscanf(hexBuf, "%2hhx", bin + count) != 1)
+            throw std::runtime_error("Invalid hexadecimal string: bad character");
 #endif
 
-		hexBuf += 2;
+        hexBuf += 2;
     }
 }

@@ -22,10 +22,10 @@ namespace libxutils {
 
 class NotImplementedException: public std::runtime_error {
 public:
-	NotImplementedException(const char * what) 
+    NotImplementedException(const char * what) 
         : std::runtime_error(what)
     {}
-	
+    
     NotImplementedException(const std::string& what) 
         : std::runtime_error(what)
     {}

@@ -29,14 +29,14 @@ std::string timeToString()
     struct tm tm;
 
 #if defined(_WIN32)
-	localtime_s(&tm, &t);
+    localtime_s(&tm, &t);
 #elif defined(__STDC_LIB_EXT1__)
-	localtime_s(&t, &tm);
+    localtime_s(&t, &tm);
 #else
-	localtime_r(&t, &tm);
+    localtime_r(&t, &tm);
 #endif
 
-	if(strftime(buf, 512, "%F %T", &tm) != 0)
+    if(strftime(buf, 512, "%F %T", &tm) != 0)
         return std::string(buf);
     else
         return std::string("strftime failed, small buffer size?");
@@ -56,9 +56,9 @@ std::ostream& logErrNo() {
     char logerrnobuf[256]; 
 
     if(strerror_s(logerrnobuf, 256, errNo) == 0) 
-		std::cerr << LOG_PREFIX << "ERROR"  << LOG_SUFFIX << "(errno=" << logerrnobuf << ") ";
-	else
-		std::cerr << LOG_PREFIX << "ERROR" << LOG_SUFFIX << "(errno=" << errNo << ") ";
+        std::cerr << LOG_PREFIX << "ERROR"  << LOG_SUFFIX << "(errno=" << logerrnobuf << ") ";
+    else
+        std::cerr << LOG_PREFIX << "ERROR" << LOG_SUFFIX << "(errno=" << errNo << ") ";
 
     return std::cerr;
 #else
@@ -75,20 +75,20 @@ std::ostream& logErrNo() {
 
 long int getCurrentThreadId() {
 #ifdef __APPLE__
-	 uint64_t tid;
-	 pthread_threadid_np(NULL, &tid);
-	 return static_cast<long int>(tid);
+     uint64_t tid;
+     pthread_threadid_np(NULL, &tid);
+     return static_cast<long int>(tid);
 #elif defined(_WIN32)
-	return GetCurrentThreadId();
+    return GetCurrentThreadId();
 #else
-	return syscall(SYS_gettid);
+    return syscall(SYS_gettid);
 #endif
 }
 
 #ifdef _WIN32
 int64_t getpid()
 {
-	return GetCurrentProcessId();
+    return GetCurrentProcessId();
 }
 
 #endif
@@ -99,27 +99,27 @@ int64_t getpid()
  */
 class LogInitializer {
 private:
-	static LogInitializer logInit;
+    static LogInitializer logInit;
 
 private:
-	LogInitializer() {
-	// If we're in "no logging" mode, make sure we never evaluate 'expr' we logdbg!
+    LogInitializer() {
+    // If we're in "no logging" mode, make sure we never evaluate 'expr' we logdbg!
 #ifdef NDEBUG
-		logdbg << "asd" << 4 << shouldNotBeCalled();
-		//loginfo << "Compiler successfully avoids evaluating expressions in 'logdbg << expr()'" << std::endl;
+        logdbg << "asd" << 4 << shouldNotBeCalled();
+        //loginfo << "Compiler successfully avoids evaluating expressions in 'logdbg << expr()'" << std::endl;
 #endif
 
-	// If we're in "no trace" mode, make sure we never evaluate 'expr' we logtrace!
+    // If we're in "no trace" mode, make sure we never evaluate 'expr' we logtrace!
 #ifndef TRACE
-		logtrace << 2 << "xyz" << shouldNotBeCalled();
-		//loginfo << "Compiler successfully avoids evaluating expressions in 'logtrace << expr()'" << std::endl;
+        logtrace << 2 << "xyz" << shouldNotBeCalled();
+        //loginfo << "Compiler successfully avoids evaluating expressions in 'logtrace << expr()'" << std::endl;
 #endif
-	}
+    }
 
-	bool shouldNotBeCalled() {
-		fprintf(stderr, "Oops, your compiler should not be evaluating expressions passed into optimized out 'log << expr' calls.\n");
-		return XAssert::coredump();
-	}
+    bool shouldNotBeCalled() {
+        fprintf(stderr, "Oops, your compiler should not be evaluating expressions passed into optimized out 'log << expr' calls.\n");
+        return XAssert::coredump();
+    }
 };
 
 LogInitializer LogInitializer::logInit;
