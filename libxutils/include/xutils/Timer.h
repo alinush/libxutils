@@ -8,6 +8,8 @@
 #pragma once
 
 #include <chrono>
+#include <cmath>
+#include <limits>
 #include <string>
 
 #include "xassert/XAssert.h"
@@ -68,9 +70,9 @@ public:
     ManualTimer() : beginning(theclock::now()) {}
 
     microseconds restart() {
-		microseconds mus = std::chrono::duration_cast<microseconds>(theclock::now() - beginning);
-		beginning = theclock::now();
-		return mus;
+        microseconds mus = std::chrono::duration_cast<microseconds>(theclock::now() - beginning);
+        beginning = theclock::now();
+        return mus;
     }
 
     microseconds stop() const {
@@ -102,6 +104,7 @@ private:
 
     microseconds total;
     unsigned long iters;
+    double m2;  // used to calculate variance
     bool started;
     std::string name;
 
@@ -109,33 +112,57 @@ private:
     friend std::ostream& operator<<(std::ostream& out, const AveragingTimer& t);
 
 public:
-	AveragingTimer(const std::string& name = "some timer") : total(0), iters(0), started(false), name(name) {}
+    AveragingTimer(const std::string& name = "some timer") : total(0), iters(0), started(false), name(name) {}
 
 public:
-	void startLap() {
-		assertFalse(started);
-		started = true;
-		beginning = theclock::now();
-	}
+    void startLap() {
+        assertFalse(started);
+        started = true;
+        beginning = theclock::now();
+    }
 
-	const std::string& getName() const { return name; }
+    const std::string& getName() const { return name; }
 
-	microseconds::rep endLap() {
-		microseconds duration = std::chrono::duration_cast<microseconds>(theclock::now() - beginning);
-		total += duration;
-		iters++;
-		assertTrue(started);	// Do this after timing, to not slow down anything.
-		started = false;
-		return duration.count();
-	}
+    microseconds::rep endLap() {
+        microseconds duration = std::chrono::duration_cast<microseconds>(theclock::now() - beginning);
 
-	unsigned long numIterations() const { return iters; }
+        iters++;
+        double delta = static_cast<double>(duration.count()) - mean();
+        total += duration;
+        double delta2 = static_cast<double>(duration.count()) - mean();
+        m2 += delta * delta2;
 
-	microseconds::rep totalLapTime() const {
-		return total.count();
-	}
+        assertTrue(started);	// Do this after timing, to not slow down anything.
+        started = false;
+        
+        return duration.count();
+    }
 
-	microseconds::rep averageLapTime() const {
-		return total.count() / static_cast<microseconds::rep>(iters);
-	}
+    unsigned long numIterations() const { return iters; }
+
+    double variance() const {
+        return m2 / static_cast<double>(iters);
+    }
+
+    double stddev() const {
+        if(iters < 2)
+            return std::numeric_limits<double>::quiet_NaN();
+        else
+            return sqrt(variance());
+    }
+    
+    double mean() const {
+        if(iters == 0)
+            return 0;
+        else
+            return static_cast<double>(total.count()) / static_cast<double>(iters);
+    }
+
+    microseconds::rep totalLapTime() const {
+        return total.count();
+    }
+
+    microseconds::rep averageLapTime() const {
+        return total.count() / static_cast<microseconds::rep>(iters);
+    }
 };
