@@ -67,6 +67,20 @@ int main(int argc, char * argv[]) {
     testAssertEqual(Utils::log2floor(512), 9);
     testAssertEqual(Utils::log2floor(1024*1024), 20);
 
+    testAssertEqual(Utils::log2ceil(1), 0);
+    testAssertEqual(Utils::log2ceil(2), 1);
+    testAssertEqual(Utils::log2ceil(3), 2);
+    testAssertEqual(Utils::log2ceil(4), 2);
+    testAssertEqual(Utils::log2ceil(5), 3);
+    testAssertEqual(Utils::log2ceil(6), 3);
+    testAssertEqual(Utils::log2ceil(7), 3);
+    testAssertEqual(Utils::log2ceil(8), 3);
+    testAssertEqual(Utils::log2ceil(15), 4);
+    testAssertEqual(Utils::log2ceil(16), 4);
+    testAssertEqual(Utils::log2ceil(511), 9);
+    testAssertEqual(Utils::log2ceil(512), 9);
+    testAssertEqual(Utils::log2ceil(513), 10);
+    testAssertEqual(Utils::log2ceil(1024*1024), 20);
 
     try {
         std::string a("abc");

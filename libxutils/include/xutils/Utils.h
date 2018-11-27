@@ -67,7 +67,7 @@ public:
 
     /**
      * Returns the number of bits needed to represent a positive integer n:
-     * Specifically, return 1 if n == 0 and ceil(log_2(n)) otherwise.
+     * Specifically, return 1 if n == 0 and floor(log_2(n)) otherwise.
      * e.g., numBits(1) = 1
      * e.g., numBits(2) = 2
      * e.g., numBits(3) = 2
@@ -78,13 +78,7 @@ public:
         if(n == 0)
             return 1;
 
-        int l = 0;
-        while(n > 0) {
-            n = n / 2;
-            l++;
-        }
-
-        return l;
+        return log2floor(n);
     }
 
     template <class T>
@@ -101,6 +95,20 @@ public:
         }
 
         return digits;
+    }
+
+    /**
+     * Returns ceil(log2(n))
+     */
+    template<class T>
+    static T log2ceil(T n) {
+        int power = 1;
+        int log2 = 0;
+        while(power < n) {
+            power *= 2;
+            log2++;
+        }
+        return log2;
     }
 
     /**
@@ -131,6 +139,7 @@ public:
 
     /**
      * Used to be called: int nearestPowerOfTwo(int n)
+     * Returns the smallest 2^i >= n
      */
     static int smallestPowerOfTwoAbove(int n) {
         assertGreaterThanOrEqual(n, 0);
@@ -142,6 +151,9 @@ public:
         return power;
     }
 
+    /**
+     * Returns the greatest 2^i <= n
+     */
     static int greatestPowerOfTwoBelow(int n) {
         if(n == 0)
             return 0;
