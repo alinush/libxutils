@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <cstring>
 #include <algorithm>
 
 template<class T>
@@ -39,6 +40,10 @@ public:
     const T * getBuf() const { return buf; }
 
     int size() const { return len; }
+
+    void zeroize() {
+        memset(buf, 0, static_cast<size_t>(len));
+    }
 };
 
 typedef AutoBuf<char> AutoCharBuf;

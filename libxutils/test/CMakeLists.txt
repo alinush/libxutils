@@ -1,4 +1,5 @@
 set(xutils_test_sources
+  AutoBufTest.cpp
   UtilsTest.cpp
 )
 
