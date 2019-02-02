@@ -78,7 +78,7 @@ public:
         if(n == 0)
             return 1;
 
-        return log2floor(n);
+        return log2floor(n) + 1;
     }
 
     template <class T>

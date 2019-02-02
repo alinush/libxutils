@@ -107,23 +107,23 @@ int main(int argc, char * argv[]) {
 
 void testUtils()
 {
-    assertEqual(Utils::numBits(1), 1);
-    assertEqual(Utils::numBits(2), 2);
-    assertEqual(Utils::numBits(3), 2);
-    assertEqual(Utils::numBits(4), 3);
-    assertEqual(Utils::numBits(5), 3);
-    assertEqual(Utils::numBits(6), 3);
-    assertEqual(Utils::numBits(7), 3);
-    assertEqual(Utils::numBits(8), 4);
+    testAssertEqual(Utils::numBits(1), 1);
+    testAssertEqual(Utils::numBits(2), 2);
+    testAssertEqual(Utils::numBits(3), 2);
+    testAssertEqual(Utils::numBits(4), 3);
+    testAssertEqual(Utils::numBits(5), 3);
+    testAssertEqual(Utils::numBits(6), 3);
+    testAssertEqual(Utils::numBits(7), 3);
+    testAssertEqual(Utils::numBits(8), 4);
 
     loginfo << "Utils::numBits passed!" << endl;
 
-    assertEqual(Utils::pow2(0), 1);
-    assertEqual(Utils::pow2(1), 2);
-    assertEqual(Utils::pow2(2), 4);
-    assertEqual(Utils::pow2(3), 8);
-    assertEqual(Utils::pow2(4), 16);
-    assertEqual(Utils::pow2(5), 32);
+    testAssertEqual(Utils::pow2(0), 1);
+    testAssertEqual(Utils::pow2(1), 2);
+    testAssertEqual(Utils::pow2(2), 4);
+    testAssertEqual(Utils::pow2(3), 8);
+    testAssertEqual(Utils::pow2(4), 16);
+    testAssertEqual(Utils::pow2(5), 32);
 
     loginfo << "Utils::pow2 passed!" << endl;
 
@@ -136,7 +136,7 @@ void testRandomSubsets()
     const int max = 10;
     Utils::randomSubset(v, max, 6);
     Utils::randomSubset(s, max, 6);
-    assertEqual(v.size(), s.size());
+    testAssertEqual(v.size(), s.size());
 
     std::for_each(v.begin(), v.end(), [&max](int &el) {
         assertGreaterThanOrEqual(el, 0);
