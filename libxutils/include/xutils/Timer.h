@@ -112,7 +112,7 @@ private:
     friend std::ostream& operator<<(std::ostream& out, const AveragingTimer& t);
 
 public:
-    AveragingTimer(const std::string& name = "some timer") : total(0), iters(0), started(false), name(name) {}
+    AveragingTimer(const std::string& name = "some timer") : total(0), iters(0), m2(0.0), started(false), name(name) {}
 
 public:
     void startLap() {
@@ -126,8 +126,8 @@ public:
     microseconds::rep endLap() {
         microseconds duration = std::chrono::duration_cast<microseconds>(theclock::now() - beginning);
 
-        iters++;
         double delta = static_cast<double>(duration.count()) - mean();
+        iters++;    // WARNING: Moving this line up will affect the mean() calculation above. Don't do it!
         total += duration;
         double delta2 = static_cast<double>(duration.count()) - mean();
         m2 += delta * delta2;
@@ -145,10 +145,14 @@ public:
     }
 
     double stddev() const {
-        if(iters < 2)
+        if(iters < 2) {
             return std::numeric_limits<double>::quiet_NaN();
-        else
+        } else {
+            auto var = variance();
+            if(var < 0)
+                throw std::runtime_error("Variance is supposed to always be positive");
             return sqrt(variance());
+        }
     }
     
     double mean() const {
