@@ -171,8 +171,9 @@ public:
         std::ostringstream str;
         long double result = static_cast<long double>(bytes);
         const char * units[] = { "bytes", "KB", "MB", "GB", "TB" };
+        unsigned int numUnits = sizeof(units)/sizeof(units[0]);
         unsigned int i = 0;
-        while(result >= 1024.0) {
+        while(result >= 1024.0 && i < numUnits - 1) {
             result /= 1024.0;
             i++;
         }
