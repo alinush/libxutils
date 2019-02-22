@@ -102,7 +102,7 @@ private:
     typedef std::chrono::high_resolution_clock theclock;
     std::chrono::time_point<theclock> beginning;
 
-    microseconds total;
+    microseconds total, min, max;
     unsigned long iters;
     double m2;  // used to calculate variance
     bool started;
@@ -112,7 +112,11 @@ private:
     friend std::ostream& operator<<(std::ostream& out, const AveragingTimer& t);
 
 public:
-    AveragingTimer(const std::string& name = "some timer") : total(0), iters(0), m2(0.0), started(false), name(name) {}
+    AveragingTimer(const std::string& name = "some timer")
+        : total(0),
+          min(std::chrono::microseconds::max().count()), max(std::chrono::microseconds::min().count()),
+          iters(0), m2(0.0), started(false), name(name)
+    {}
 
 public:
     void startLap() {
@@ -134,6 +138,12 @@ public:
 
         assertTrue(started);	// Do this after timing, to not slow down anything.
         started = false;
+
+        // update min & max
+        if(min > duration)
+            min = duration;
+        if(max < duration)
+            max = duration;
         
         return duration.count();
     }
