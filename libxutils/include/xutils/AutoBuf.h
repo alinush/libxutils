@@ -14,9 +14,13 @@ template<class T>
 class AutoBuf {
 private:
     T * buf;
-    int len;
+    long len;
 
 public:
+    AutoBuf(long len)
+        : buf(new T[len]), len(len)
+    {}
+
     AutoBuf(int len)
         : buf(new T[len]), len(len)
     {}
@@ -39,7 +43,7 @@ public:
     T * getBuf() { return buf; }
     const T * getBuf() const { return buf; }
 
-    int size() const { return len; }
+    long size() const { return len; }
 
     void zeroize() {
         memset(buf, 0, static_cast<size_t>(len));

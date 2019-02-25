@@ -29,6 +29,8 @@ int main(int argc, char * argv[]) {
         testAssertEqual(buf[i], 0);
     }
 
+    AutoBuf<unsigned char> bufint(128l);
+
     loginfo << "Test passed!" << endl;
 
     return 0;
