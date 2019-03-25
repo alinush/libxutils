@@ -127,6 +127,15 @@ void testUtils()
 
     loginfo << "Utils::pow2 passed!" << endl;
 
+    testAssertEqual(Utils::withCommas(3), "3");
+    testAssertEqual(Utils::withCommas(30), "30");
+    testAssertEqual(Utils::withCommas(100), "100");
+    testAssertEqual(Utils::withCommas(1234), "1,234");
+    testAssertEqual(Utils::withCommas(91234), "91,234");
+    testAssertEqual(Utils::withCommas(191234), "191,234");
+    testAssertEqual(Utils::withCommas(7191234), "7,191,234");
+
+    loginfo << "Utils::withCommas passed!" << endl;
 }
 
 void testRandomSubsets() 

@@ -55,6 +55,22 @@ public:
     };
 
 public:
+    template<class T>
+    static std::string withCommas(T value) {
+        std:: string numWithCommas = std::to_string(value);
+        if(numWithCommas.length() > 3) {
+            size_t insertPosition = numWithCommas.length() - 3;
+            while(true) {
+                numWithCommas.insert(insertPosition, ",");
+                if(insertPosition > 3)
+                    insertPosition -= 3;
+                else
+                    break;
+            }
+        }
+        return numWithCommas;
+    }
+
     template<class C, class V>
     static void removeFirst(C& c, const V& v) {
         auto it = std::find(c.begin(), c.end(), v);
