@@ -80,6 +80,41 @@ public:
     }
 };
 
+class CumulativeTimer {
+protected:
+    typedef std::chrono::high_resolution_clock theclock;
+    microseconds total;
+    std::chrono::time_point<theclock> beginning;
+    bool started;
+
+public:
+    CumulativeTimer()
+        : total(0), started(false)
+    {}
+
+public:
+    microseconds::rep getTotal() const { return total.count(); }
+
+    void start() {
+        assertFalse(started);
+        started = true;
+        beginning = theclock::now();
+    }
+
+    /**
+     * Returns the duration of the current lap.
+     */
+    microseconds::rep end() {
+        microseconds duration = std::chrono::duration_cast<microseconds>(theclock::now() - beginning);
+
+        total += duration;
+
+        assertTrue(started);    // Do this after timing, to not slow down anything.
+        started = false;
+        return duration.count();
+    }
+};
+
 /**
  * To be used for timing multiple pieces of code in a loop:
  *
