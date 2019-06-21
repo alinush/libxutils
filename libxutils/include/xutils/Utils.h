@@ -157,10 +157,11 @@ public:
      * Used to be called: int nearestPowerOfTwo(int n)
      * Returns the smallest 2^i >= n
      */
-    static int smallestPowerOfTwoAbove(int n) {
+    template<class T>
+    static T smallestPowerOfTwoAbove(T n) {
         assertGreaterThanOrEqual(n, 0);
 
-        int power = 1;
+        T power = 1;
         while(power < n) {
             power *= 2;
         }
@@ -170,11 +171,12 @@ public:
     /**
      * Returns the greatest 2^i <= n
      */
-    static int greatestPowerOfTwoBelow(int n) {
+    template<class T>
+    static T greatestPowerOfTwoBelow(T n) {
         if(n == 0)
             return 0;
 
-        int ret = 1;
+        T ret = 1;
 
         while(n >>= 1)
             ret <<= 1;
