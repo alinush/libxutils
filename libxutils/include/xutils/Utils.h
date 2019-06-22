@@ -154,6 +154,13 @@ public:
     }
 
     /**
+     * Returns true if n = 2^k for some non-negative integer k.
+     */
+    static bool isPowerOfTwo(size_t n) {
+        return !(n == 0) && !(n & (n - 1));
+    }
+
+    /**
      * Used to be called: int nearestPowerOfTwo(int n)
      * Returns the smallest 2^i >= n
      */

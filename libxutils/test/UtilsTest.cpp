@@ -136,6 +136,18 @@ void testUtils()
     testAssertEqual(Utils::withCommas(7191234), "7,191,234");
 
     loginfo << "Utils::withCommas passed!" << endl;
+
+    testAssertEqual(Utils::isPowerOfTwo(0), false);
+    testAssertEqual(Utils::isPowerOfTwo(1), true);
+    testAssertEqual(Utils::isPowerOfTwo(2), true);
+    testAssertEqual(Utils::isPowerOfTwo(3), false);
+    testAssertEqual(Utils::isPowerOfTwo(4), true);
+    testAssertEqual(Utils::isPowerOfTwo(5), false);
+    testAssertEqual(Utils::isPowerOfTwo(6), false);
+    testAssertEqual(Utils::isPowerOfTwo(7), false);
+    testAssertEqual(Utils::isPowerOfTwo(8), true);
+
+    loginfo << "Utils::isPowerOfTwo passed!" << endl;
 }
 
 void testRandomSubsets() 
