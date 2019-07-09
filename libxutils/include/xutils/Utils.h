@@ -14,8 +14,10 @@
 #include <iterator>
 #include <string>
 #include <set>
+#include <chrono>
 
-#include "xassert/XAssert.h"
+#include <xassert/XAssert.h>
+#include <xutils/Log.h>
 
 // TODO: namespace into libxutils
 
@@ -203,6 +205,57 @@ public:
             i++;
         }
 
+        str << result;
+        str << " ";
+        str << units[i];
+
+        return str.str();
+    }
+
+    static std::string humanizeMicroseconds(std::chrono::microseconds::rep mus) {
+        std::ostringstream str;
+        double result = static_cast<double>(mus);
+        const char * units[] = { "mus", "ms", "secs", "mins", "hrs", "days", "years" };
+        unsigned int numUnits = sizeof(units)/sizeof(units[0]);
+        unsigned int i = 0;
+
+        //logdbg << "Starting with " << result;
+        //std::cout << " ";
+        //std::cout << units[i] << std::endl;
+
+        while(result >= 1000.0 && i < 2) {
+            result /= 1000.0;
+            i++;
+            //logdbg << " * " << result;
+            //std::cout << " ";
+            //std::cout << units[i] << std::endl;
+        }
+
+        while(result >= 60.0 && i >= 2 && i < 4) {
+            result /= 60.0;
+            i++;
+            //logdbg << " * " << result;
+            //std::cout << " ";
+            //std::cout << units[i] << std::endl;
+        }
+
+        if(i == 4 && result >= 24.0) {
+            result /= 24.0;
+            i++;
+            //logdbg << " * " << result;
+            //std::cout << " ";
+            //std::cout << units[i] << std::endl;
+        }
+
+        if(i == 5 && result >= 365.25) {
+            result /= 365.25;
+            i++;
+            //logdbg << " * " << result;
+            //std::cout << " ";
+            //std::cout << units[i] << std::endl;
+        }
+
+        assertStrictlyLessThan(i, numUnits);
         str << result;
         str << " ";
         str << units[i];

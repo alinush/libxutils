@@ -148,6 +148,37 @@ void testUtils()
     testAssertEqual(Utils::isPowerOfTwo(8), true);
 
     loginfo << "Utils::isPowerOfTwo passed!" << endl;
+
+    std::vector<std::chrono::microseconds::rep> musList = {
+        60,             // 60 mus
+        61,             // 61 mus
+        1000,           // 1.0 ms
+        1100,           // 1.1 ms
+        60*1000,        // 60 ms
+        61*1000,        // 61 ms
+        1000*1000,      // 1.0 secs
+        1100*1000,      // 1.1 secs
+        60*1000*1000,   // 60 s
+        61*1000*1000,   // 61 s
+        1100*1000*1000ull, // 18.33 mins
+        24*60*1000*1000ull, // 24 mins
+        36 * 60 * 1000 * 1000ull, // 36 mins
+        73 * 60 * 1000 * 1000ull, // 1.21 hrs
+        23 * 60 * 60 * 1000 * 1000ull, // 23 hrs
+        24 * 60 * 60 * 1000 * 1000ull, // 1 day
+        27 * 60 * 60 * 1000 * 1000ull, // 1.125 days
+        365ull * 24ull * 60ull * 60ull * 1000ull * 1000ull, // 365 days
+        366ull * 24ull * 60ull * 60ull * 1000ull * 1000ull, // 1.002 years
+    };
+
+    loginfo << sizeof(unsigned long long) << " bytes for ull" << endl;
+    loginfo << sizeof(std::chrono::microseconds) << " bytes for microseconds::rep" << endl;
+
+    for(auto mus : musList) {
+        loginfo << mus << " mus -> ";
+        std::cout << Utils::humanizeMicroseconds(mus);
+        std::cout << endl;
+    }
 }
 
 void testRandomSubsets() 
