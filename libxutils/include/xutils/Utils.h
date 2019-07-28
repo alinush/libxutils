@@ -120,6 +120,9 @@ public:
      */
     template<class T>
     static T log2ceil(T n) {
+        if(n <= 0)
+            throw std::logic_error("Cannot compute log2ceil(x) when x <= 0");
+
         int power = 1;
         int log2 = 0;
         while(power < n) {
@@ -134,8 +137,8 @@ public:
      */
     template<class T>
     static T log2floor(T n) {
-        if(n < 0)
-            throw std::logic_error("log2 on negative numbers doesn't work");
+        if(n <= 0)
+            throw std::logic_error("Cannot compute log2floor(x) when x <= 0");
 
         T res = 0;
         while (n /= 2) {
