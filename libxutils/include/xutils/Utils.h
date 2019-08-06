@@ -12,6 +12,7 @@
 #include <vector>
 #include <sstream>
 #include <iterator>
+#include <iomanip>
 #include <string>
 #include <set>
 #include <chrono>
@@ -197,10 +198,10 @@ public:
     }
 
     template<class T>
-    static std::string humanizeBytes(T bytes) {
+    static std::string humanizeBytes(T bytes, size_t precision = 2) {
         std::ostringstream str;
         long double result = static_cast<long double>(bytes);
-        const char * units[] = { "bytes", "KB", "MB", "GB", "TB" };
+        const char * units[] = { "bytes", "KiB", "MiB", "GiB", "TiB" };
         unsigned int numUnits = sizeof(units)/sizeof(units[0]);
         unsigned int i = 0;
         while(result >= 1024.0 && i < numUnits - 1) {
@@ -208,6 +209,7 @@ public:
             i++;
         }
 
+        str << std::fixed << std::setprecision(static_cast<int>(precision));
         str << result;
         str << " ";
         str << units[i];
@@ -215,7 +217,7 @@ public:
         return str.str();
     }
 
-    static std::string humanizeMicroseconds(std::chrono::microseconds::rep mus) {
+    static std::string humanizeMicroseconds(std::chrono::microseconds::rep mus, size_t precision = 2) {
         std::ostringstream str;
         double result = static_cast<double>(mus);
         const char * units[] = { "mus", "ms", "secs", "mins", "hrs", "days", "years" };
@@ -259,6 +261,7 @@ public:
         }
 
         assertStrictlyLessThan(i, numUnits);
+        str << std::fixed << std::setprecision(static_cast<int>(precision));
         str << result;
         str << " ";
         str << units[i];

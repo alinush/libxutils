@@ -179,6 +179,8 @@ void testUtils()
         std::cout << Utils::humanizeMicroseconds(mus);
         std::cout << endl;
     }
+
+    Utils::humanizeBytes(1024);
 }
 
 void testRandomSubsets() 
