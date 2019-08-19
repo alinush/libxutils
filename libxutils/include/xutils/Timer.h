@@ -212,6 +212,8 @@ public:
     }
 
     microseconds::rep averageLapTime() const {
+        if(iters == 0)
+            throw std::runtime_error("Cannot compute average lap time when no laps were started");
         return total.count() / static_cast<microseconds::rep>(iters);
     }
 };
