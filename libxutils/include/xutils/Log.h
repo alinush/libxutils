@@ -21,6 +21,10 @@
 /**************
  * FUNCTIONS  *
  **************/
+
+/**
+ * Returns the current time in "2019-08-26 17:10:33" format.
+ */
 std::string timeToString();
 std::ostream& logErrNo();
 long int getCurrentThreadId();
