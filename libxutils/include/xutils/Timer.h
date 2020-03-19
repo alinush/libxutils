@@ -12,7 +12,8 @@
 #include <limits>
 #include <string>
 
-#include "xassert/XAssert.h"
+#include <xassert/XAssert.h>
+#include <xutils/Utils.h>
 
 using std::chrono::microseconds;
 
@@ -40,7 +41,7 @@ public:
 
     ~ScopedTimer() {
         T mus = std::chrono::duration_cast<T>(theclock::now() - beginning);
-        out << prefix << mus.count() << suffix << std::flush;
+        out << prefix << Utils::withCommas(mus.count()) << suffix << std::flush;
     }
 };
 
