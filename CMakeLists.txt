@@ -30,6 +30,9 @@ endif()
 #find_package(Boost 1.65 COMPONENTS program_options REQUIRED)
 #include_directories(${Boost_INCLUDE_DIR})
 
+# TODO: there should be better ways of dealing with this
+include_directories(SYSTEM "/usr/local/include") # because OS X Catalina is a pain in the ***
+
 #
 # C++ options
 #   TODO: change to set_target_properties?
