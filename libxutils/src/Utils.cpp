@@ -4,9 +4,9 @@
  *  Created on: Oct 10, 2014
  *      Author: Alin Tomescu <alinush@mit.edu>
  */
-#include "xutils/Utils.h"
-#include "xutils/AutoBuf.h"
-#include "xutils/Log.h"
+#include <xutils/Utils.h>
+#include <xutils/AutoBuf.h>
+#include <xutils/Log.h>
 
 #include <string>
 #include <stdexcept>
@@ -15,7 +15,7 @@
 #include <set>
 #include <fstream>
 
-#include "xassert/XAssert.h"
+#include <xassert/XAssert.h>
 
 using std::endl;
 

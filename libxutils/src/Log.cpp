@@ -13,8 +13,8 @@
 #include <windows.h>
 #endif
 
-#include "xutils/Log.h"
-#include "xassert/XAssert.h"		// coredump
+#include <xutils/Log.h>
+#include <xassert/XAssert.h>		// coredump
 
 std::ostream& coredumpOstream() {
     logerror << "Oops, looks like there's a either a logic error in your logdbg/logtrace/log[.*] #define's or your compiler is not optimizing out log[.*] calls when they are disabled" << std::endl;
