@@ -34,9 +34,7 @@ int main(int argc, char * argv[]) {
     srand(seed);
 
     testUtils();
-    for(int i = 0; i < 10; i++) {
-        testRandomSubsets();
-    }
+    testRandomSubsets();
 
     testAssertEqual(Utils::smallestPowerOfTwoAbove(0), 1);
     testAssertEqual(Utils::smallestPowerOfTwoAbove(1), 1);
@@ -187,13 +185,21 @@ void testRandomSubsets()
 {
     std::vector<int> v;
     std::set<int> s;
-    const int max = 10;
-    Utils::randomSubset(v, max, 6);
-    Utils::randomSubset(s, max, 6);
-    testAssertEqual(v.size(), s.size());
+    const int n = 4;
+    const int k = 2;
 
-    std::for_each(v.begin(), v.end(), [max](int &el) {
-        assertGreaterThanOrEqual(el, 0);
-        assertStrictlyLessThan(el, max);
-    });
+    // repeat enough times to make sure all subsets are picked (in expectation)
+    for(size_t i = 0; i < 100; i++) {
+        Utils::randomSubset(v, n, k);
+        Utils::randomSubset(s, n, k);
+        testAssertEqual(v.size(), s.size());
+
+        std::for_each(v.begin(), v.end(), [n](int &el) {
+            assertGreaterThanOrEqual(el, 0);
+            assertStrictlyLessThan(el, n);
+        });
+    }
+
+    std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, " "));
+    std::cout << endl;
 }

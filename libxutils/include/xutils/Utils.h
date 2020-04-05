@@ -7,9 +7,11 @@
 
 #pragma once
 
+#include <algorithm>
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <random>
 #include <sstream>
 #include <iterator>
 #include <iomanip>
@@ -273,13 +275,13 @@ public:
      * Returns k random numbers in the range [0, n) + offset as an std::set
      */
     template<class T>
-    static void randomSubset(std::set<T>& rset, int n, int k, T offset = 0) {
-        // NOTE: Does not need cryptographically secure RNG
-        while (rset.size() < static_cast<typename std::set<T>::size_type>(k)) {
-            T i = static_cast<T>(rand() % n) + offset;
+    static void randomSubset(std::set<T>& s, int n, int k, T offset = 0) {
+        std::vector<T> v;
+        randomSubset(v, n, k, offset);
 
-            rset.insert(i);
-        }
+        s.clear();
+        s.insert(v.begin(), v.end());
+        assertEqual(s.size(), v.size());
     }
 
     /**
@@ -287,12 +289,15 @@ public:
      */
     template<class T>
     static void randomSubset(std::vector<T>& v, int n, int k, T offset = 0) {
-        std::set<T> s;
-        v.resize(static_cast<size_t>(k));
+        // NOTE: Does not need cryptographically secure RNG
+        v.resize(static_cast<size_t>(n));
+        for (size_t i = 0; i < v.size(); i++) {
+            v[i] = static_cast<T>(i) + offset;
+        }
 
-        randomSubset(s, n, k, offset);
-        v.assign(s.begin(), s.end());
-        assertEqual(s.size(), v.size());
+        std::shuffle(v.begin(), v.end(), std::mt19937{std::random_device{}()});
+
+        v.resize(static_cast<size_t>(k));
     }
 
     static void hex2bin(const char * hexBuf, int hexBufLen, unsigned char * bin, int binCapacity);
