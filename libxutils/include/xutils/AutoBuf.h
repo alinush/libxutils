@@ -17,6 +17,10 @@ private:
     long len;
 
 public:
+    AutoBuf(size_t len)
+        : buf(new T[len]), len(static_cast<long>(len))
+    {}
+
     AutoBuf(long len)
         : buf(new T[len]), len(len)
     {}

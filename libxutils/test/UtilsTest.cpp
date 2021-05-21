@@ -194,7 +194,7 @@ void testRandomSubsets()
         Utils::randomSubset(s, n, k);
         testAssertEqual(v.size(), s.size());
 
-        std::for_each(v.begin(), v.end(), [n](int &el) {
+        std::for_each(v.begin(), v.end(), [](int &el) {
             assertGreaterThanOrEqual(el, 0);
             assertStrictlyLessThan(el, n);
         });
