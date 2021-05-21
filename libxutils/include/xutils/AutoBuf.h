@@ -22,11 +22,11 @@ public:
     {}
 
     AutoBuf(long len)
-        : buf(new T[len]), len(len)
+        : buf(new T[static_cast<unsigned long>(len)]), len(len)
     {}
 
     AutoBuf(int len)
-        : buf(new T[len]), len(len)
+        : buf(new T[static_cast<unsigned long>(len)]), len(len)
     {}
 
     AutoBuf(const AutoBuf<T>& ab)
