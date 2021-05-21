@@ -17,6 +17,8 @@ private:
     long len;
 
 public:
+    AutoBuf() : len(0), buf(nullptr) {}
+
     AutoBuf(size_t len)
         : buf(new T[len]), len(static_cast<long>(len))
     {}
@@ -33,6 +35,29 @@ public:
         : AutoBuf(ab.len)
     {
         std::copy(ab.buf, ab.buf + ab.len, buf);
+    }
+ 
+    AutoBuf(AutoBuf&& other)
+        : buf(other.buf), len(other.len)
+    {
+        other.buf = nullptr;
+        other.len = 0;
+    }
+
+    // Move assignment
+    AutoBuf& operator=(AutoBuf&& other) noexcept {
+        if (this == other)
+            return *this;
+
+        delete [] buf;
+
+        buf = other.buf;
+        len = other.len;
+
+        other.buf = nullptr;
+        other.len = 0;
+
+        return *this;
     }
 
     ~AutoBuf() {
