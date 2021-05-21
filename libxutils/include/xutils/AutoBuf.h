@@ -10,6 +10,8 @@
 #include <cstring>
 #include <algorithm>
 
+#include <xutils/Log.h>
+
 template<class T>
 class AutoBuf {
 private:
@@ -40,13 +42,17 @@ public:
     AutoBuf(AutoBuf&& other)
         : buf(other.buf), len(other.len)
     {
+        //logdbg << "Move constructor called: this = " << this << ", other = " << &other << std::endl;
+
         other.buf = nullptr;
         other.len = 0;
     }
 
     // Move assignment
     AutoBuf& operator=(AutoBuf&& other) noexcept {
-        if (this == other)
+        //logdbg << "Move assignment called: this = " << this << ", other = " << &other << std::endl;
+
+        if (this == &other)
             return *this;
 
         delete [] buf;

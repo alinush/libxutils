@@ -34,6 +34,7 @@ int main(int argc, char * argv[]) {
     loginfo << "Test passed!" << endl;
 
     AutoBuf<unsigned char> moved = std::move(bufint);
+    moved = std::move(bufint);
 
     return 0;
 }
