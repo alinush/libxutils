@@ -74,6 +74,13 @@ public:
     operator T* () { return buf; }
     operator const T* () const { return buf; }
 
+    bool operator==(const AutoBuf& o) {
+        if (len != o.len)
+            return false;
+
+        return memcmp(buf, o.buf, o.len) == 0;
+    }
+
 public:
     T * getBuf() { return buf; }
     const T * getBuf() const { return buf; }
