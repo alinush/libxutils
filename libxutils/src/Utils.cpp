@@ -24,8 +24,8 @@ bool Utils::fileExists(const std::string& file) {
     return fin.good();
 }
 
-void Utils::bin2hex(const void * bin, int binLen, char * hexBuf, int hexBufCapacity) {
-    int needed = binLen * 2 + 1;
+void Utils::bin2hex(const void * bin, size_t binLen, char * hexBuf, size_t hexBufCapacity) {
+    size_t needed = binLen * 2 + 1;
     static const char hex[] = "0123456789abcdef";
 
     if(hexBufCapacity < needed) {
@@ -35,7 +35,7 @@ void Utils::bin2hex(const void * bin, int binLen, char * hexBuf, int hexBufCapac
     }
 
     const unsigned char * bytes = reinterpret_cast<const unsigned char *>(bin);
-    for(int i = 0; i < binLen; i++)
+    for(size_t i = 0; i < binLen; i++)
     {
         unsigned char c = bytes[i];
         hexBuf[2*i]   = hex[c >> 4];    // translate the upper 4 bits
@@ -44,26 +44,26 @@ void Utils::bin2hex(const void * bin, int binLen, char * hexBuf, int hexBufCapac
     hexBuf[2*binLen] = '\0';
 }
 
-std::string Utils::bin2hex(const void * bin, int binLen) {
+std::string Utils::bin2hex(const void * bin, size_t binLen) {
     assertStrictlyPositive(binLen);
 
-    size_t hexBufSize = 2 * static_cast<size_t>(binLen) + 1;
-    AutoCharBuf hexBuf(static_cast<int>(hexBufSize));
+    size_t hexBufSize = 2 * binLen + 1;
+    AutoCharBuf hexBuf(hexBufSize);
     std::string hexStr(hexBufSize, '\0');  // pre-allocate string object
 
     assertEqual(hexBufSize, hexStr.size());
 
-    Utils::bin2hex(bin, binLen, hexBuf, static_cast<int>(hexBufSize));
+    Utils::bin2hex(bin, binLen, hexBuf, hexBufSize);
     hexStr.assign(hexBuf.getBuf());
 
     return hexStr;
 }
 
-void Utils::hex2bin(const std::string& hexStr, unsigned char * bin, int binCapacity) {
-    hex2bin(hexStr.c_str(), static_cast<int>(hexStr.size()), bin, binCapacity);
+void Utils::hex2bin(const std::string& hexStr, unsigned char * bin, size_t binCapacity) {
+    hex2bin(hexStr.c_str(), hexStr.size(), bin, binCapacity);
 }
 
-void Utils::hex2bin(const char * hexBuf, int hexBufLen, unsigned char * bin, int binCapacity)
+void Utils::hex2bin(const char * hexBuf, size_t hexBufLen, unsigned char * bin, size_t binCapacity)
 {
     assertNotNull(hexBuf);
     assertNotNull(bin);
@@ -74,13 +74,13 @@ void Utils::hex2bin(const char * hexBuf, int hexBufLen, unsigned char * bin, int
         throw std::runtime_error("Invalid hexadecimal string: odd size");
     }
 
-    int binLen = hexBufLen / 2;
+    size_t binLen = hexBufLen / 2;
 
     if(binLen > binCapacity) {
         throw std::runtime_error("hexBuf size is larger than binary buffer size");
     }
 
-    for (int count = 0; count < binLen; count++) {
+    for (size_t count = 0; count < binLen; count++) {
 
 #if defined(__STDC_LIB_EXT1__) || defined(_WIN32)
         if (sscanf_s(hexBuf, "%2hhx", bin + count) != 1)

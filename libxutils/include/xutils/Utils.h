@@ -300,9 +300,9 @@ public:
         v.resize(static_cast<size_t>(k));
     }
 
-    static void hex2bin(const char * hexBuf, int hexBufLen, unsigned char * bin, int binCapacity);
-    static void bin2hex(const void * data, int dataLen, char * hexBuf, int hexBufCapacity);
+    static void hex2bin(const char * hexBuf, size_t hexBufLen, unsigned char * bin, size_t binCapacity);
+    static void bin2hex(const void * data, size_t dataLen, char * hexBuf, size_t hexBufCapacity);
 
-    static std::string bin2hex(const void * data, int dataLen);
-    static void hex2bin(const std::string& hexStr, unsigned char * bin, int binCapacity);
+    static std::string bin2hex(const void * data, size_t dataLen);
+    static void hex2bin(const std::string& hexStr, unsigned char * bin, size_t binCapacity);
 };
