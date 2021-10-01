@@ -15,22 +15,22 @@
 template<class T>
 class AutoBuf {
 private:
+    size_t len;
     T * buf;
-    long len;
 
 public:
     AutoBuf() : len(0), buf(nullptr) {}
 
-    AutoBuf(size_t len)
-        : buf(new T[len]), len(static_cast<long>(len))
+    AutoBuf(size_t l)
+        : len(l), buf(new T[len])
     {}
 
-    AutoBuf(long len)
-        : buf(new T[static_cast<unsigned long>(len)]), len(len)
+    AutoBuf(long l)
+        : len(static_cast<size_t>(l)), buf(new T[len])
     {}
 
-    AutoBuf(int len)
-        : buf(new T[static_cast<unsigned long>(len)]), len(len)
+    AutoBuf(int l)
+        : len(static_cast<size_t>(l)), buf(new T[len])
     {}
 
     AutoBuf(const AutoBuf<T>& ab)
@@ -40,7 +40,7 @@ public:
     }
  
     AutoBuf(AutoBuf&& other)
-        : buf(other.buf), len(other.len)
+        : len(other.len), buf(other.buf)
     {
         //logdbg << "Move constructor called: this = " << this << ", other = " << &other << std::endl;
 
@@ -78,10 +78,10 @@ public:
     T * getBuf() { return buf; }
     const T * getBuf() const { return buf; }
 
-    long size() const { return len; }
+    size_t size() const { return len; }
 
     void zeroize() {
-        memset(buf, 0, static_cast<size_t>(len));
+        memset(buf, 0, len);
     }
 };
 
