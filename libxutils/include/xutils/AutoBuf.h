@@ -81,6 +81,10 @@ public:
         return memcmp(buf, o.buf, o.len) == 0;
     }
 
+    bool operator!=(const AutoBuf& o) {
+        return !operator==(o);
+    }
+
 public:
     T * getBuf() { return buf; }
     const T * getBuf() const { return buf; }
