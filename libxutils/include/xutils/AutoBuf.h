@@ -11,6 +11,7 @@
 #include <algorithm>
 
 #include <xutils/Log.h>
+//#include <xutils/Utils.h>
 
 template<class T>
 class AutoBuf {
@@ -74,14 +75,17 @@ public:
     operator T* () { return buf; }
     operator const T* () const { return buf; }
 
-    bool operator==(const AutoBuf& o) {
+    bool operator==(const AutoBuf& o) const {
+        //logdbg << len << " bytes: " << Utils::bin2hex(buf, len) << std::endl;
+        //logdbg << o.len << " bytes: " << Utils::bin2hex(o.buf, o.len) << std::endl;
+
         if (len != o.len)
             return false;
 
         return memcmp(buf, o.buf, o.len) == 0;
     }
 
-    bool operator!=(const AutoBuf& o) {
+    bool operator!=(const AutoBuf& o) const {
         return !operator==(o);
     }
 
