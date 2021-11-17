@@ -41,7 +41,7 @@ public:
 
     ~ScopedTimer() {
         T mus = std::chrono::duration_cast<T>(theclock::now() - beginning);
-        out << prefix << Utils::withCommas(mus.count()) << suffix << std::flush;
+        out << prefix << Utils::withCommas(mus.count()) << " microseconds" << suffix << std::flush;
     }
 };
 
