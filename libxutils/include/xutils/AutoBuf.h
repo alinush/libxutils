@@ -98,6 +98,14 @@ public:
     void zeroize() {
         memset(buf, 0, len);
     }
+
+    void shrink(size_t newlen) {
+        if(newlen >= len) {
+            throw std::runtime_error("AutoBuf::shrink() expects a length smaller than the current one");
+        }
+
+        len = newlen;
+    }
 };
 
 typedef AutoBuf<char> AutoCharBuf;
