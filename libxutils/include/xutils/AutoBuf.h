@@ -100,7 +100,7 @@ public:
     }
 
     void shrink(size_t newlen) {
-        if(newlen >= len) {
+        if(newlen > len) {
             throw std::runtime_error("AutoBuf::shrink() expects a length smaller than the current one");
         }
 
